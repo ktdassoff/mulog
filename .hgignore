@@ -1,0 +1,11 @@
+syntax: regexp
+~$
+\.directory
+\.DS_Store
+\.so$
+\.o$
+\.dll$
+\.exe$
+\.la$
+testmulog
+testmulog_d

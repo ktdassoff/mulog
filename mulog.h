@@ -41,11 +41,20 @@ typedef struct mulog_t *mulog_ref;
 /* Indicates different logger types */
 enum mulog_type {
     mulog_t_file,       // outputs to a C file handle
-    mulog_t_con,        // outputs to the STDOUT and STDERR streams, optionally with color
+    mulog_t_con,        // outputs to the terminal/console, optionally with color
     mulog_t_split,      // sends messages to two different mulog objects
     mulog_t_dummy       // no-op mulog object
 };
 typedef enum mulog_type mulog_type;
+
+/* Indicates the different logging levels */
+enum mulog_level {
+	mulog_l_debug,
+	mulog_l_info,
+	mulog_l_warning,
+	mulog_l_error
+};
+typedef enum mulog_level mulog_level;
 
 /* Controls output formatting of time */
 enum mulog_timefmt {
@@ -96,19 +105,21 @@ mulog_status mulog_create_dummy(mulog_ref *l);
  * ===================
  */
 
-/* The signature of each is similar to fprintf or vfprintf, but with the FILE handle replace by a mulog_ref */
+/* Basic log function, with no formatting */
+mulog_status mulog_append(mulog_ref l, const char * str, size_t len);
 
+/* The signature of each of the following is similar to fprintf or vfprintf, but with the FILE handle replaced by a mulog_ref */
 /* Outputs an error message to the given logger */
-void mulog_verr(mulog_ref l, const char* str, va_list va);
-void mulog_err(mulog_ref l, const char* str, ...);
+void mulog_verr(mulog_ref l, const char * str, va_list va);
+void mulog_err(mulog_ref l, const char * str, ...);
 
 /* Outputs a warning message to the given logger */
-void mulog_vwarn(mulog_ref l, const char* str, va_list va);
-void mulog_warn(mulog_ref l, const char* str, ...);
+void mulog_vwarn(mulog_ref l, const char * str, va_list va);
+void mulog_warn(mulog_ref l, const char * str, ...);
 
 /* Outputs an informational message to the given logger */
-void mulog_vinfo(mulog_ref l, const char* str, va_list va);
-void mulog_info(mulog_ref l, const char* str, ...);
+void mulog_vinfo(mulog_ref l, const char * str, va_list va);
+void mulog_info(mulog_ref l, const char * str, ...);
 
 /* Outputs a debugging/verbose informational message to the given logger
  * if and only if the logger's with_debug flag is set

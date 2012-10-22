@@ -22,7 +22,7 @@
 
 DEFINES=-DMULOG_UNIX
 CC=gcc
-CFLAGS=-pipe -std=c99 $(DEFINES)
+CFLAGS=-pipe -std=c99 $(DEFINES) -I/usr/include/qt4
 
 DBGCFLAGS=$(CFLAGS) -g
 RELCFLAGS=$(CFLAGS) -O2

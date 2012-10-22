@@ -264,7 +264,7 @@ mulog_status mulog_create_con(mulog_ref *l, mulog_timefmt timefmt, int with_debu
     if(!mulog_hstdout) mulog_hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
     if(!mulog_hstderr) mulog_hstderr = GetStdHandle(STD_ERROR_HANDLE);
 #endif
-    
+
     if(timefmt < 0 || timefmt > mulog_tm_na) return mulog_err_inval;
     mulog_ref m = malloc(sizeof(struct mulog_t));
     m->type = mulog_t_con;
@@ -291,19 +291,6 @@ mulog_status mulog_create_split(mulog_ref *l, mulog_ref left, mulog_ref right) {
     return mulog_ok;
 }
 
-/*
-mulog_status mulog_create_dummy(mulog_ref *l) {
-    mulog_ref m = malloc(sizeof(struct mulog_t));
-    m->type = mulog_t_dummy;
-    m->fh = NULL;
-    m->timefmt = mulog_tm_na;
-    m->left = NULL;
-    m->right = NULL;
-    m->flag = 0;
-    *l = m;
-    return mulog_ok;
-}
-*/
 mulog_status mulog_create_dummy(mulog_ref *l) {
     *l = NULL;
     return mulog_ok;
@@ -313,6 +300,10 @@ mulog_status mulog_create_dummy(mulog_ref *l) {
  * Msg funcs
  * =========
  */
+
+mulog_status mulog_append(mulog_ref l, const char * str, size_t len) {
+
+}
 
 // formating helper func & constants
 const char* mulog_tc_long = "%c %Z";
